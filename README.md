@@ -1,16 +1,16 @@
-# 🛡️ Ejercicio 2.3: SCL Validator & Generator
-### Gestión Avanzada de Lógica IEC 61131-3 (Siemens TIA Portal Style)
+# 🛡️ Ejercicio 2.3: SCL AI Architect
+### Generación y Validación de Código IEC 61131-3 (TIA Portal)
 
-## 🚀 Inicio Rápido (Web)
-👉 **[Acceso Directo a la Web](https://AbyssIzangamer17.github.io/Ejercicio_2_3_SCL_IEC61131/)**
+Solución integral (Frontend/DB/Backend) diseñada para que ingenieros de automatización generen lógica SCL compleja mediante lenguaje natural.
 
-## 📊 Visualización de Resultados
+## 🚀 Inicio Rápido
+Inicia el Arquitecto IA:
+👉 **[Abrir SCL AI Architect](frontend_architect.html)**
 
-1.  **Entrada**: Selecciona una plantilla (Motor, Válvula, Analog) y pulsa **"Generar SCL"**.
-2.  **Salida**: Verás el código IEC 61131-3 formateado en el editor.
-3.  **Validación**: Pulsa **"Validar Integridad"** y verás un mensaje de éxito con estética Glassmorphism confirmando que el código es apto para entornos industriales.
-
-Para uso local, clona el repo y abre `frontend/index.html`.
+## 📋 Especificaciones
+- **Investigación**: Estudio del estándar IEC 61131-3 y su aplicación en PLC Siemens S7-1200/1500.
+- **AI Copilot**: Capacidad de generar código SCL a partir de descripciones libres (ej: "semáforo con prioridad").
+- **Validación Estructural**: Comprobación de que el código generado se ajusta al estándar de bloques funcionales (FB).
 
 ## 👤 Autor
 **Izan Urios** - 3R de Automatización y Robótica Industrial.
