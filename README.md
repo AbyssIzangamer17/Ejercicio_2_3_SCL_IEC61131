@@ -1,26 +1,16 @@
 # 🛡️ Ejercicio 2.3: SCL Validator & Generator
 ### Gestión Avanzada de Lógica IEC 61131-3 (Siemens TIA Portal Style)
 
-Plataforma inteligente para la generación y validación de código SCL (Structured Control Language), diseñada con una estética moderna y funcional.
-
 ## 🚀 Inicio Rápido (Web)
-La forma más rápida de usar la herramienta es a través de su página oficial:
-👉 **[Demo en Vivo (GitHub Pages)](https://AbyssIzangamer17.github.io/Ejercicio_2_3_SCL_IEC61131/)**
+👉 **[Acceso Directo a la Web](https://AbyssIzangamer17.github.io/Ejercicio_2_3_SCL_IEC61131/)**
 
-## 💻 Inicio Rápido (Local)
+## 📊 Visualización de Resultados
 
-1. **Clonar el repositorio**:
-   ```bash
-   git clone https://github.com/AbyssIzangamer17/Ejercicio_2_3_SCL_IEC61131.git
-   cd Ejercicio_2_3_SCL_IEC61131
-   ```
+1.  **Entrada**: Selecciona una plantilla (Motor, Válvula, Analog) y pulsa **"Generar SCL"**.
+2.  **Salida**: Verás el código IEC 61131-3 formateado en el editor.
+3.  **Validación**: Pulsa **"Validar Integridad"** y verás un mensaje de éxito con estética Glassmorphism confirmando que el código es apto para entornos industriales.
 
-2. **Uso**:
-   Abre `frontend/index.html` en cualquier navegador moderno.
-
-## ✨ Características
-- **Generación de Código**: Bloques funcionales para motores, válvulas y escalado.
-- **Validación Estructural**: Comprobación instantánea de sintaxis estándar.
+Para uso local, clona el repo y abre `frontend/index.html`.
 
 ## 👤 Autor
 **Izan Urios** - 3R de Automatización y Robótica Industrial.
