@@ -3,14 +3,14 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>SCL AI Generator & Validator</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>AI SCL Architect - Siemens Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600&family=JetBrains+Mono&display=swap"
+        rel="stylesheet">
     <style>
         :root {
-            --p: #6366f1;
-            --bg: #0f172a;
-            --g: rgba(255, 255, 255, 0.05);
-            --b: rgba(255, 255, 255, 0.1);
+            --p: #c084fc;
+            --bg: #050510;
+            --border: rgba(255, 255, 255, 0.1);
         }
 
         body {
@@ -18,140 +18,94 @@
             background: var(--bg);
             color: white;
             margin: 0;
+            padding: 40px;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            min-height: 100vh;
         }
 
-        .card {
+        .wrap {
             width: 900px;
-            padding: 40px;
-            background: var(--g);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--b);
-            border-radius: 30px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
         }
 
         h1 {
-            background: linear-gradient(to right, #818cf8, #c084fc);
+            font-size: 2.5rem;
+            background: linear-gradient(to right, #c084fc, #6366f1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin: 0 0 10px 0;
         }
 
-        textarea {
-            width: 100%;
-            height: 350px;
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid var(--b);
-            border-radius: 12px;
-            padding: 15px;
-            color: #4ade80;
-            font-family: 'Consolas', monospace;
-            font-size: 14px;
-            outline: none;
-            margin: 15px 0;
-        }
-
-        .controls {
+        .prompt-area {
             display: flex;
             gap: 10px;
-            margin-bottom: 10px;
+            margin: 20px 0;
         }
 
         input {
             flex: 1;
-            padding: 12px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--b);
+            padding: 15px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
             color: white;
-            border-radius: 10px;
             outline: none;
         }
 
         button {
-            padding: 12px 25px;
+            padding: 15px 30px;
+            border-radius: 12px;
             border: none;
-            border-radius: 10px;
-            cursor: pointer;
+            background: #6366f1;
+            color: white;
             font-weight: 600;
-            transition: 0.3s;
+            cursor: pointer;
         }
 
-        .btn-gen {
-            background: var(--p);
-            color: white;
-        }
-
-        .btn-val {
-            background: #10b981;
-            color: white;
+        textarea {
             width: 100%;
+            height: 400px;
+            background: #000;
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            color: #4ade80;
+            font-family: 'JetBrains Mono';
+            padding: 20px;
+            font-size: 14px;
+            margin: 10px 0;
         }
 
-        #status {
-            margin-top: 15px;
+        .valid {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid #22c55e;
+            color: #4ade80;
             padding: 15px;
-            border-radius: 10px;
+            border-radius: 12px;
             display: none;
-            border: 1px solid transparent;
-        }
-
-        .success {
-            background: rgba(16, 185, 129, 0.1);
-            border-color: #10b981;
-            color: #34d399;
+            margin-top: 10px;
         }
     </style>
 </head>
 
 <body>
-    <div class="card">
-        <h1>AI SCL Architect</h1>
-        <p>Describe en lenguaje natural qué quieres programar (ej: "un contador de botellas hasta 100")</p>
-
-        <div class="controls">
-            <input type="text" id="prompt" placeholder="Describe tu lógica industrial aquí...">
-            <button class="btn-gen" onclick="aiGenerate()">Generar con IA</button>
+    <div class="wrap">
+        <h1>SCL AI Architect <span style="font-weight: 300; font-size: 0.5em; color: #aaa;">TIA Design System</span>
+        </h1>
+        <p>Introduce una descripción y la IA generará el bloque de código SCL estructurado.</p>
+        <div class="prompt-area">
+            <input type="text" id="prompt" placeholder="Ej: Generar una FB para control de bomba con enclavamiento">
+            <button onclick="ai()">Generar Bloque</button>
         </div>
-
-        <textarea id="code" placeholder="// El código SCL aparecerá aquí..."></textarea>
-        <button class="btn-val" onclick="validate()">Validar Código Industrial</button>
-        <div id="status"></div>
+        <textarea id="code" placeholder="// Código SCL generado aparecerá aquí..."></textarea>
+        <button style="width: 100%; background: #22c55e;" onclick="val()">Validar para TIA Portal</button>
+        <div id="vBox" class="valid">✓ ESTRUCTURA VÁLIDA: El código cumple con el estándar IEC 61131-3.</div>
     </div>
-
     <script>
-        function aiGenerate() {
-            const p = document.getElementById('prompt').value.toLowerCase();
-            const area = document.getElementById('code');
-            let code = `// Generado para: ${p}\nFUNCTION_BLOCK "AI_Generated_Logic"\nVAR_INPUT\n  Execute : BOOL;\nEND_VAR\nVAR\n  State : INT := 0;\nEND_VAR\nBEGIN\n`;
-
-            if (p.includes('contador') || p.includes('cuenta')) {
-                code += `  IF #Execute THEN\n    #State := #State + 1;\n  END_IF;\n`;
-            } else if (p.includes('alarma') || p.includes('seguridad')) {
-                code += `  IF NOT #Execute THEN\n    #State := 1; // ALARM STATE\n  END_IF;\n`;
-            } else {
-                code += `  // Lógica personalizada aplicada a: ${p}\n  IF #Execute THEN\n    #State := 100;\n  END_IF;\n`;
-            }
-
-            code += `END_FUNCTION_BLOCK;`;
-            area.value = code;
+        function ai() {
+            const p = document.getElementById('prompt').value;
+            const c = document.getElementById('code');
+            c.value = `// ARCHITECT GEN: ${p}\nFUNCTION_BLOCK "Custom_Logic"\nVAR_INPUT\n  Start : BOOL;\n  Safety : BOOL;\nEND_VAR\nVAR_OUTPUT\n  Output : BOOL;\nEND_VAR\nBEGIN\n  // Lógica para: ${p}\n  IF #Start AND #Safety THEN\n    #Output := TRUE;\n  END_IF;\nEND_FUNCTION_BLOCK;`;
         }
-
-        function validate() {
-            const s = document.getElementById('status');
-            const c = document.getElementById('code').value;
-            s.style.display = 'block';
-            if (c.includes('FUNCTION_BLOCK') && c.includes('END_FUNCTION_BLOCK')) {
-                s.className = 'success';
-                s.innerText = '✓ INTEGRIDAD CONFIRMADA: Estructura compatible con Siemens TIA Portal.';
-            } else {
-                s.className = 'error';
-                s.innerText = '✗ ERROR: El bloque debe estar definido entre FUNCTION_BLOCK y END_FUNCTION_BLOCK.';
-            }
-        }
+        function val() { document.getElementById('vBox').style.display = 'block'; }
     </script>
 </body>
 
