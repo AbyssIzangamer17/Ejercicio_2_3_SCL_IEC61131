@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -86,36 +87,73 @@
             display: none;
         }
 
-        .success { background: rgba(34, 197, 94, 0.2); border: 1px solid #22c55e; color: #4ade80; }
-        .error { background: rgba(239, 68, 68, 0.2); border: 1px solid #ef4444; color: #f87171; }
+        .success {
+            background: rgba(34, 197, 94, 0.2);
+            border: 1px solid #22c55e;
+            color: #4ade80;
+        }
+
+        .error {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid #ef4444;
+            color: #f87171;
+        }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>SCL Code Validator (IEC 61131-3)</h1>
-        <p>Introduce tu código SCL para validación estructural e integridad industrial.</p>
+        <p>Introduce tu código SCL para validación o utiliza el generador avanzado para crear lógica industrial.</p>
+
+        <div style="margin-bottom: 20px; display: flex; gap: 10px;">
+            <select id="templateType"
+                style="flex: 1; padding: 12px; background: rgba(0,0,0,0.4); border: 1px solid var(--border); color: #cbd5e1; border-radius: 12px; outline: none; transition: border 0.3s;">
+                <option value="motor">Bloque de Motor (FB)</option>
+                <option value="valvula">Control de Válvula (FB)</option>
+                <option value="analog">Escalado Analógico (FC)</option>
+            </select>
+            <button onclick="generateCode()"
+                style="margin-top: 0; background: linear-gradient(135deg, #c084fc, #6366f1);">Generar SCL</button>
+        </div>
+
         <textarea id="sclCode" placeholder="VAR
   temp : INT;
 END_VAR
 
 temp := 10;"></textarea>
-        <button onclick="validateCode()">Validar Programa</button>
+        <button onclick="validateCode()" style="width: 100%; margin-top: 15px;">Validar Integridad</button>
         <div id="status"></div>
     </div>
 
     <script>
+        const templates = {
+            motor: `FUNCTION_BLOCK "ControlMotor"\nVAR_INPUT\n  Start : BOOL;\n  Stop : BOOL;\n  Safety_OK : BOOL;\nEND_VAR\nVAR_OUTPUT\n  Motor_Running : BOOL;\nEND_VAR\nBEGIN\n  IF (#Start AND NOT #Stop AND #Safety_OK) THEN\n    #Motor_Running := TRUE;\n  ELSIF (#Stop OR NOT #Safety_OK) THEN\n    #Motor_Running := FALSE;\n  END_IF;\nEND_FUNCTION_BLOCK;`,
+            valvula: `FUNCTION_BLOCK "ControlValvula"\nVAR_INPUT\n  Open_CMD : BOOL;\n  Close_CMD : BOOL;\nEND_VAR\nVAR_OUTPUT\n  Opened : BOOL;\n  Closed : BOOL;\nEND_VAR\nBEGIN\n  IF #Open_CMD THEN\n    #Opened := TRUE;\n    #Closed := FALSE;\n  ELSIF #Close_CMD THEN\n    #Opened := FALSE;\n    #Closed := TRUE;\n  END_IF;\nEND_FUNCTION_BLOCK;`,
+            analog: `FUNCTION "Scaling_4_20mA"\nVAR_INPUT\n  Input_Raw : INT; // 0..27648\n  Min_Real : REAL := 0.0;\n  Max_Real : REAL := 100.0;\nEND_VAR\nVAR_OUTPUT\n  Output_Phys : REAL;\nEND_VAR\nBEGIN\n  #Output_Phys := ((#Input_Raw / 27648.0) * (#Max_Real - #Min_Real)) + #Min_Real;\nEND_FUNCTION;`
+        };
+
+        function generateCode() {
+            const type = document.getElementById('templateType').value;
+            document.getElementById('sclCode').value = templates[type];
+            const statusDiv = document.getElementById('status');
+            statusDiv.style.display = 'block';
+            statusDiv.className = 'success';
+            statusDiv.innerText = '✨ Código sugerido por el Agente IA correctamente generado.';
+        }
+
         async function validateCode() {
             const code = document.getElementById('sclCode').value;
             const statusDiv = document.getElementById('status');
-            
+
             try {
                 // Simulación de fetch al backend (puerto 3001)
                 // En un entorno real: const response = await fetch('http://localhost:3001/validate', ...)
-                
+
                 const isValid = code.toLowerCase().includes('var') && code.toLowerCase().includes('end_var') && code.trim().endsWith(';');
-                
+
                 statusDiv.style.display = 'block';
-                if(isValid) {
+                if (isValid) {
                     statusDiv.className = 'success';
                     statusDiv.innerText = '✓ Verificación Exitosa: Código cumple con el estándar IEC 61131-3.';
                 } else {
@@ -128,4 +166,5 @@ temp := 10;"></textarea>
         }
     </script>
 </body>
+
 </html>
