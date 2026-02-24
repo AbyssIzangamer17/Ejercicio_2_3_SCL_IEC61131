@@ -1,0 +1,32 @@
+FUNCTION_BLOCK "ControlMotor"
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      Start : Bool;   // Botón de marcha
+      Stop : Bool;    // Botón de paro
+      SensorOK : Bool; // Sensor de seguridad
+   END_VAR
+
+   VAR_OUTPUT 
+      MotorRunning : Bool; // Salida al contactor
+      Error : Bool;        // Indicador de fallo
+   END_VAR
+
+   VAR 
+      RunningState : Bool;
+   END_VAR
+
+
+BEGIN
+	// Lógica de control de motor en SCL (IEC 61131-3)
+	IF #Stop OR NOT #SensorOK THEN
+	    #RunningState := FALSE;
+	    #Error := NOT #SensorOK;
+	ELSIF #Start AND #SensorOK THEN
+	    #RunningState := TRUE;
+	    #Error := FALSE;
+	END_IF;
+	
+	#MotorRunning := #RunningState;
+	
+END_FUNCTION_BLOCK
