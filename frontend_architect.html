@@ -10,8 +10,13 @@
         :root {
             --p: #a855f7;
             --bg: #030712;
-            --glass: rgba(17, 24, 39, 0.7);
-            --border: rgba(255, 255, 255, 0.1);
+            --card: rgba(17, 24, 39, 0.85);
+            --border: rgba(255, 255, 255, 0.08);
+            --green: #4ade80;
+        }
+
+        * {
+            box-sizing: border-box;
         }
 
         body {
@@ -20,6 +25,27 @@
             color: white;
             margin: 0;
             padding: 40px;
+            min-height: 100vh;
+            background-image: radial-gradient(ellipse at 20% 50%, rgba(168, 85, 247, 0.06) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(99, 102, 241, 0.06) 0%, transparent 60%);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.4rem;
+            margin: 0;
+            background: linear-gradient(135deg, #a855f7, #6366f1, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p {
+            color: #94a3b8;
+            font-size: 1rem;
+            margin-top: 8px;
         }
 
         .grid {
@@ -31,105 +57,229 @@
         }
 
         .panel {
-            background: var(--glass);
-            backdrop-filter: blur(10px);
+            background: var(--card);
+            backdrop-filter: blur(20px);
             border: 1px solid var(--border);
             border-radius: 24px;
             padding: 30px;
         }
 
-        textarea {
-            width: 100%;
-            height: 450px;
-            background: #000;
-            color: #4ade80;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 14px;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 20px;
-            outline: none;
-            resize: none;
-        }
-
         .input-prompt {
             width: 100%;
-            padding: 15px;
-            border-radius: 12px;
-            background: rgba(0, 0, 0, 0.3);
+            padding: 16px;
+            border-radius: 14px;
+            background: rgba(0, 0, 0, 0.4);
             border: 1px solid var(--border);
             color: white;
-            margin-bottom: 20px;
             font-size: 1rem;
+            outline: none;
+            transition: .3s;
+            font-family: inherit;
+        }
+
+        .input-prompt:focus {
+            border-color: var(--p);
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.15);
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
         }
 
         .btn {
-            padding: 12px 24px;
-            border-radius: 10px;
+            padding: 14px 24px;
+            border-radius: 12px;
             border: none;
             font-weight: 600;
             cursor: pointer;
-            transition: 0.3s;
+            transition: .3s;
+            font-size: .9rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
         }
 
         .btn-p {
-            background: var(--p);
+            background: linear-gradient(135deg, #a855f7, #7c3aed);
             color: white;
-            margin-right: 10px;
+            flex: 1;
+        }
+
+        .btn-p:hover {
+            box-shadow: 0 8px 25px rgba(168, 85, 247, 0.3);
         }
 
         .btn-copy {
+            background: #374151;
+            color: #d1d5db;
+        }
+
+        .btn-copy:hover {
             background: #4b5563;
-            color: white;
+        }
+
+        .code-wrap {
+            position: relative;
+            margin-top: 0;
+        }
+
+        textarea {
+            width: 100%;
+            height: 480px;
+            background: #000;
+            color: var(--green);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            outline: none;
+            resize: none;
+            line-height: 1.6;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .code-lang {
+            font-size: .75rem;
+            color: var(--p);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .btn-val {
-            background: #10b981;
+            background: linear-gradient(135deg, #10b981, #059669);
             color: white;
             width: 100%;
-            margin-top: 15px;
+            margin-top: 16px;
+            padding: 16px;
+            font-size: 1rem;
+        }
+
+        .btn-val:hover {
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
         }
 
         #status {
-            margin-top: 15px;
-            padding: 15px;
-            border-radius: 10px;
+            margin-top: 16px;
+            padding: 18px;
+            border-radius: 14px;
             display: none;
+            font-size: .9rem;
+            line-height: 1.5;
         }
 
-        h1 {
-            background: linear-gradient(to right, #a855f7, #6366f1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .info-card {
+            margin-top: 28px;
+            padding: 24px;
+            background: rgba(168, 85, 247, 0.05);
+            border: 1px solid rgba(168, 85, 247, 0.15);
+            border-radius: 16px;
+        }
+
+        .info-card h3 {
+            margin: 0 0 8px;
+            font-size: .95rem;
+            color: var(--p);
+        }
+
+        .info-card p {
+            font-size: .85rem;
+            color: #94a3b8;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .examples {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .ex-chip {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: .82rem;
+            color: #94a3b8;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .ex-chip:hover {
+            border-color: var(--p);
+            color: var(--p);
+            background: rgba(168, 85, 247, 0.08);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #374151;
+            font-size: .78rem;
         }
     </style>
 </head>
 
 <body>
+    <div class="header">
+        <h1>SCL AI Architect</h1>
+        <p>Describe tu aplicación industrial y el Agente IA construirá la arquitectura SCL (IEC 61131-3)</p>
+    </div>
+
     <div class="grid">
         <div class="panel">
-            <h1>SCL AI Architect</h1>
-            <p>Describe tu aplicación industrial y deja que el Agente IA construya la arquitectura SCL.</p>
+            <h3 style="margin-top:0;color:#e2e8f0">Prompt de Ingeniería</h3>
             <input type="text" id="p-input" class="input-prompt"
                 placeholder="Ej: Control de un semáforo con ciclo de 10s">
-            <div style="display: flex;">
-                <button class="btn btn-p" onclick="generateSCL()">CONSTRUIR LÓGICA</button>
-                <button class="btn btn-copy" onclick="copyCode()">COPIAR SCL</button>
+            <div class="btn-row">
+                <button class="btn btn-p" onclick="generateSCL()">⚡ CONSTRUIR LÓGICA</button>
+                <button class="btn btn-copy" onclick="copyCode()">📋 COPIAR</button>
             </div>
-            <div style="margin-top: 30px; padding: 20px; background: rgba(255,255,255,0.02); border-radius: 15px;">
-                <p>💡 <strong>Inteligencia Predictiva</strong></p>
-                <p style="font-size: 0.85rem; color: #888;">El sistema autocompleta declaraciones de variables
-                    (VAR/END_VAR) y asegura que las asignaciones sigan la norma IEC 61131-3.</p>
+
+            <div class="examples">
+                <div class="ex-chip" onclick="setPrompt('semáforo con ciclo de 10 segundos')">🚦 Semáforo</div>
+                <div class="ex-chip" onclick="setPrompt('bomba de lubricación con protección')">💧 Bomba</div>
+                <div class="ex-chip" onclick="setPrompt('control PID de temperatura')">🌡️ PID Temp</div>
+                <div class="ex-chip" onclick="setPrompt('contador de piezas con reset')">🔢 Contador</div>
+            </div>
+
+            <div class="info-card">
+                <h3>💡 Inteligencia Predictiva</h3>
+                <p>El sistema autocompleta declaraciones de variables (VAR/END_VAR) y asegura que las asignaciones sigan
+                    la norma IEC 61131-3. Compatible con TIA Portal v17+.</p>
             </div>
         </div>
+
         <div class="panel">
-            <textarea id="scl-code" placeholder="// Código generado..."></textarea>
-            <button class="btn btn-val" onclick="validate()">Validar e Inspeccionar TIA Code</button>
+            <div class="code-header">
+                <span class="code-lang">SCL · IEC 61131-3</span>
+                <span style="font-size:.75rem;color:#475569">Editable</span>
+            </div>
+            <div class="code-wrap">
+                <textarea id="scl-code" placeholder="// El código generado aparecerá aquí..."></textarea>
+            </div>
+            <button class="btn btn-val" onclick="validate()">✓ Validar e Inspeccionar TIA Code</button>
             <div id="status"></div>
         </div>
     </div>
 
+    <footer>Documento realizado por <b>Izan Urios</b> de 3R de Automatización y Robótica industrial</footer>
+
     <script>
+        function setPrompt(text) { document.getElementById('p-input').value = text; }
+
         function generateSCL() {
             const prompt = document.getElementById('p-input').value;
             const area = document.getElementById('scl-code');
@@ -156,9 +306,11 @@
 
         function copyCode() {
             const area = document.getElementById('scl-code');
-            area.select();
-            document.execCommand('copy');
-            alert('Código SCL copiado al portapapeles.');
+            navigator.clipboard.writeText(area.value).then(() => {
+                const btn = document.querySelector('.btn-copy');
+                btn.innerText = '✓ Copiado!';
+                setTimeout(() => btn.innerText = '📋 COPIAR', 2000);
+            });
         }
     </script>
 </body>
