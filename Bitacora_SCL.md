@@ -10,6 +10,17 @@ El proyecto consiste en crear una herramienta web que permita a ingenieros de au
 
 ---
 
+### Prompt de Origen
+
+**Fuente:** PDF de Instrucciones del Ejercicio (Captura 2026-02-24)
+
+**Prompt original:**
+> "Exercici 2.3. SCL/IEC 61131-3. Investigar sobre el llenguatge SCL i crear una solució completa."
+
+Este prompt establece la investigación sobre el lenguaje SCL y la creación de una solución completa como objetivo del ejercicio.
+
+---
+
 ### Prompts Utilizados
 
 #### Prompt #1
