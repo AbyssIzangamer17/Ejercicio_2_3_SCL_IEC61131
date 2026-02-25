@@ -14,10 +14,33 @@ El proyecto consiste en crear una herramienta web que permita a ingenieros de au
 
 **Fuente:** PDF de Instrucciones del Ejercicio (Captura 2026-02-24)
 
-**Prompt original:**
+**Contexto del ejercicio:**
+El Ejercicio 2.3 forma parte del bloque "Habilidades del Ecosistema IA" del módulo. Este ejercicio combina la programación de PLCs con herramientas de inteligencia artificial, un campo en rápido crecimiento en la industria 4.0.
+
+**Prompt original extraído del PDF:**
 > "Exercici 2.3. SCL/IEC 61131-3. Investigar sobre el llenguatge SCL i crear una solució completa."
 
-Este prompt establece la investigación sobre el lenguaje SCL y la creación de una solución completa como objetivo del ejercicio.
+**Interpretación y desarrollo:**
+Este prompt establece dos objetivos principales:
+1. Investigar sobre el lenguaje SCL (Structured Control Language)
+2. Crear una solución completa
+
+SCL es un lenguaje de programación textual de alto nivel para PLCs Siemens, equivalente a lenguajes como Pascal o C en el mundo de la programación convencional. Es especialmente útil para:
+- Lógica compleja y algoritmos matemáticos
+- Manipulación de datos estructurados
+- Funciones de posicionamiento
+- Recetas y batching
+- Comunicación Ethernet/PROFINET
+
+La investigación debe cubrir:
+- Sintaxis y estructura de SCL según IEC 61131-3
+- Tipos de datos y operaciones
+- Instrucciones de control (IF, CASE, FOR, WHILE)
+- Funciones y bloques funcionales
+- Integración con TIA Portal
+- Mejores prácticas de programación
+
+**Nota del desarrollo:** El sistema final implementa un generador de código SCL que acepta descripciones en lenguaje natural y produce código válido para TIA Portal, incluyendo validación automática según el estándar IEC 61131-3.
 
 ---
 
